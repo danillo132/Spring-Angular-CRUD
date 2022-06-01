@@ -1,0 +1,104 @@
+<h3 class="title">Tela de cadastro</h3>
+
+<form #formValidate="ngForm" >
+<div class="mb-3">
+    <label for="id" class="form-label">ID</label>
+    <input type="text" [(ngModel)]="usuario.id" class="form-control" id="id" name="id" readonly="true">
+  </div>
+  <div class="mb-3">
+    <label for="nome" class="form-label">Nome:</label>
+    <span style="color: red; font-size: 23px;" *ngIf="nomeValidate.invalid"> *</span>
+    <input type="text" [(ngModel)]="usuario.nome" #nomeValidate="ngModel" class="form-control"  id="nome" name="nome" required="true" placeholder="Nome completo" autocomplete="false">
+  </div>
+  <div class="form-row">
+  <div class="form-group col-md-4">
+    <label for="login" class="form-label">Login:</label>
+    <span style="color: red; font-size: 23px;" *ngIf="loginValidate.invalid"> *</span>
+    <input type="text" [(ngModel)]="usuario.login" #loginValidate="ngModel" class="form-control"  id="login" name="login" required="true" placeholder="Seu login" autocomplete="false">
+  </div>
+  <div class="form-group col-md-6">
+    <label for="email" class="form-label">E-mail:</label>
+    <span style="color: red; font-size: 23px;" *ngIf="emailValidate.invalid"> *</span>
+    <input type="text" [(ngModel)]="usuario.email" #emailValidate="ngModel" class="form-control"  id="email" name="email" required="true" placeholder="Seu e-mail" autocomplete="false">
+  </div>
+</div>
+  <div class="form-row">
+  <div class="form-group col-md-6">
+    <label for="senha" class="form-label">Senha:</label>
+    <span style="color: red; font-size: 23px;" *ngIf="senhaValidate.invalid"> *</span>
+    <input type="password" [(ngModel)]="usuario.senha"  #senhaValidate="ngModel" class="form-control"  id="senha" name="senha" required="true" placeholder="Senha" autocomplete="false">
+  </div>
+  
+  <div class="form-group col-md-4">
+    
+    <label for="salario" class="form-label">Salário:</label>
+    <span style="color: red; font-size: 23px;" *ngIf="salarioValidate.invalid"> *</span>
+    <input currencyMask [options]="{prefix: 'R$', thousands: '.', decimal: ','}" [(ngModel)]="usuario.salario"  #salarioValidate="ngModel" class="form-control"  id="salario" name="salario"   autocomplete="false">
+  </div>
+
+</div>
+  <div class="form-row">
+  <div class="form-group col-md-3">
+    <label for="cpf" class="form-label">CPF:</label>
+     <span style="color: red; font-size: 23px;" > *</span>
+    <input type="text"  [(ngModel)]="usuario.cpf" mask="000.000.000-00" class="form-control" id="cpf"  name="cpf" placeholder="CPF" maxlength="14" autocomplete="false">
+  </div>
+  <div class="form-group col-md-3">
+    <label for="data" class="form-label">Data de nascimento:</label>
+    <span style="color: red; font-size: 23px;" > *</span>
+    <div class="input-group">
+      <input type="text" class="form-control" name="dataNascimento"  id="dataNascimento" [(ngModel)]="usuario.dataNascimento"  placeholder="dd/mm/yyyy" ngbDatepicker #dataNascimento="ngbDatepicker" >
+      <div class="input-group-append">
+          <button class="btn btn-primary" (click)="dataNascimento.toggle()" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="profissao" class="form-label">Profissão:</label>
+    <span style="color: red; font-size: 23px;" > *</span>
+    <select [(ngModel)]="usuario.profissao.id" id="profissao" name="profissao" class="form-control" #profissaoValidate="ngModel" required="true">
+        <option [ngValue]="p.id" *ngFor="let p of profissao">
+            {{p.descricao}}
+        </option>
+    </select>
+  </div>
+
+</div>
+  <div class="card text-center">
+    <div class="card-header">
+        Telefone de contato
+    </div>
+    <div class="card-body " style="padding-left: 1px;">
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <input type="text" class="form-control" mask="(00) 0 0000-0000" [(ngModel)]="telefone.numero" id="numero" name="numero">
+          </div>
+
+          <div class="form-group col-md-2">
+           <button class="btn btn-primary" (click)="addFone()">Adicionar</button>
+          </div>
+           
+        </div>
+    </div>
+  </div>
+
+  <table class="table">
+
+    <tbody>
+      <tr *ngFor="let fone of usuario.telefones; let i=index">
+          <td>{{fone.id}}</td>
+          <td mask="(00) 0 0000-0000">{{fone.numero}}</td>
+          <td><button class="btn btn-danger" (click)="deletarTelefone(fone.id, i)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="mb-3">
+
+    <button  type="button" class="btn btn-warning" [routerLink]="['/usuariolist']" routerLinkActive="router-link-active">Voltar</button>
+    <button  type="button" class="btn btn-danger" (click)="novo()" >Novo</button>
+    <button  type="button" class="btn btn-primary" [disabled]="formValidate.invalid" (click)="salvarUser()">Salvar</button>
+  </div>
+</form>

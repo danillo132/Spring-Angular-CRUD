@@ -1,0 +1,67 @@
+<h3 class="title">Relatório de Usuário</h3>
+
+<form #formValidate="ngForm" >
+
+ 
+
+
+  <div class="form-row">
+ 
+  <div class="form-group col-md-3">
+    <label for="dataInicio" class="form-label">Data de nascimento inicial:</label>
+    <span style="color: red; font-size: 23px;" > *</span>
+    <div class="input-group">
+      <input type="text" class="form-control" name="dataInicio"  id="dataInicio"  [(ngModel)]="userReport.dataInicio"   placeholder="dd/mm/yyyy" ngbDatepicker #dataInicio="ngbDatepicker" >
+      <div class="input-group-append">
+          <button class="btn btn-primary" (click)="dataInicio.toggle()"  type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="dataFim" class="form-label">Data de nascimento final:</label>
+    <span style="color: red; font-size: 23px;" > *</span>
+    <div class="input-group">
+      <input type="text" class="form-control" name="dataFim"  id="dataFim"  [(ngModel)]="userReport.dataFim"   placeholder="dd/mm/yyyy" ngbDatepicker #dataFim="ngbDatepicker" >
+      <div class="input-group-append">
+          <button class="btn btn-primary" (click)="dataFim.toggle()"  type="button"></button>
+      </div>
+    </div>
+  </div>
+
+ 
+
+</div>
+ 
+
+  
+
+
+  <div class="mb-3">
+
+    <button  type="button" class="btn btn-warning" [routerLink]="['/usuariolist']" routerLinkActive="router-link-active">Voltar</button>
+    <button  type="button" class="btn btn-warning" (click)="imprimeRelatorio()" data-toggle="modal" data-target="#myModal">Imprimir PDF</button>
+   
+    
+  </div>
+</form>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="min-width: 90%; min-height: 90%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Relatório de usuários por data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe src="" id="pdf" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

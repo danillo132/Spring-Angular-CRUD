@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+ 
+  <form>
+    <div class="form-group"> 
+      <h3>Login do Sistema: </h3>
+    </div>
+
+    <div class="form-group"> 
+      <label for="login">Email</label>
+      <input type="email" class="form-control" #email = "ngModel" [(ngModel)] = "usuario.login" id="login" name="login" placeholder="e-mail" required = true>
+        <div *ngIf="email.invalid" class="alert alert-danger">
+              Login deve ser informado
+        </div>
+    
+    </div>
+
+   
+
+    <div class="form-group"> 
+      <label for="senha">Senha</label>
+      <input type="password" class="form-control" #senha="ngModel" [(ngModel)] = "usuario.senha" id="senha" name="senha" placeholder="Informe a senha" required>
+    
+        <div *ngIf="senha.invalid" class="alert alert-danger">
+            Senha deve ser informada
+        </div>
+    </div>
+
+    <button type="button" [disabled]="email.invalid || senha.invalid" class="btn btn-primary" (click)="login()">Acessar</button>
+    <button type="button" style="margin-left: 10px;" [disabled]="email.invalid " class="btn btn-primary" (click)="recuperar()">Recuperar Acesso</button>
+  </form>
+</body>
+</html>
